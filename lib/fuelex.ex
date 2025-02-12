@@ -3,16 +3,21 @@ defmodule Fuelex do
   Documentation for `Fuelex`.
   """
 
-  @doc """
-  Hello world.
+  @gravities %{
+    "earth" => 9.807,
+    "moon" => 1.620,
+    "mars" => 3.711
+  }
 
-  ## Examples
+  defp validate_path(path) do
+    planets = Map.keys(@gravities)
 
-      iex> Fuelex.hello()
-      :world
+    Enum.reduce_while(path, :ok, fn {_, planet}, acc ->
+      if planet in planets, do: {:cont, acc}, else: {:halt, {:error, error(planet, planets)}}
+    end)
+  end
 
-  """
-  def hello do
-    :world
+  defp error(planet, planets) do
+    "Gravity unknown for planet: #{planet}. Supported planets are #{planets}"
   end
 end
