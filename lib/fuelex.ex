@@ -9,6 +9,17 @@ defmodule Fuelex do
     "mars" => 3.711
   }
 
+  @constants %{
+    :launch => {0.042, 33},
+    :land => {0.033, 42}
+  }
+
+  defp calculate({directive, planet}, mass) do
+    {constant, residual} = Map.get(@constants, directive)
+    gravity = Map.get(@gravities, planet)
+    calculate_recursive(mass, gravity, constant, residual, 0)
+  end
+
   defp calculate_recursive(mass, gravity, constant, residual, fuel_acc) do
     case floor(mass * gravity * constant - residual) do
       fuel when fuel <= 0 ->
