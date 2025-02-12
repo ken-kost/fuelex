@@ -14,6 +14,22 @@ defmodule Fuelex do
     :land => {0.033, 42}
   }
 
+  #  """
+  # Calculates ammount of fuel for a given mass of ship it's path.
+
+  # ## Examples
+
+  #     iex> Fuelex.calculate_fuel(28801, [{:launch, "earth"}, {:land, "moon"}, {:launch, "moon"}, {:land, "earth"}])
+  #     51898
+
+  # """
+  @spec calculate_fuel(integer(), [{atom(), String.t()}]) :: integer()
+  def calculate_fuel(mass, path) do
+    with :ok <- validate_path(path) do
+      Enum.reduce(Enum.reverse(path), 0, &(calculate(&1, &2 + mass) + &2))
+    end
+  end
+
   defp calculate({directive, planet}, mass) do
     {constant, residual} = Map.get(@constants, directive)
     gravity = Map.get(@gravities, planet)
