@@ -1,11 +1,12 @@
 defmodule Fuelex.Domain do
   use Ash.Domain, otp_app: :fuelex, extensions: [AshAi]
 
-  ai_agent do
-    expose([:add_gravity, :get_gravity])
-  end
-
   resources do
+    resource Fuelex.Ships do
+      define(:add_ship, action: :create, args: [:name, :mass])
+      define(:get_ship, action: :get_by_name, args: [:name])
+    end
+
     resource Fuelex.Gravities do
       define(:add_gravity, action: :create, args: [:planet, :constant])
       define(:get_gravity, action: :get_by_planet, args: [:planet])
