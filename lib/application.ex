@@ -7,11 +7,9 @@ defmodule Fuelex.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [
-      Fuelex.Repo
-    ]
+    children = [Fuelex.Repo, {Fuelex.GenShip, [random_simulations?: true]}]
 
-    opts = [strategy: :one_for_one, name: Nutrea.Supervisor]
+    opts = [strategy: :one_for_one, name: Fuelex.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end
