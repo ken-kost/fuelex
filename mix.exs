@@ -7,7 +7,8 @@ defmodule Fuelex.MixProject do
       version: "0.1.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases()
     ]
   end
 
@@ -26,6 +27,14 @@ defmodule Fuelex.MixProject do
       {:ash_postgres, "~> 2.5"},
       {:ash_json_api, "~> 1.4", override: true},
       {:igniter, "~> 0.5.23"}
+    ]
+  end
+
+  defp aliases do
+    [
+      setup: ["deps.get", "ecto.setup"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"]
     ]
   end
 end
