@@ -20,18 +20,18 @@ defmodule Fuelex do
   end
 
   defp calculate({directive, planet}, mass) do
-    [%{constant: constant, residual: residual}] = Fuelex.Domain.get_constant!(directive)
-    [%{constant: gravity}] = Fuelex.Domain.get_gravity!(planet)
-    calculate_recursive(mass, gravity, constant, residual, 0)
+    %{constant: constant, residual: residual} = Fuelex.Domain.get_constant!(directive)
+    gravity = Fuelex.Domain.get_gravity!(planet)
+    calculate_recursive(mass, gravity.constant, constant, residual, 0)
   end
 
-  defp calculate_recursive(mass, gravity, constant, residual, fuel_acc) do
-    case floor(mass * gravity * constant - residual) do
+  defp calculate_recursive(mass, gravity_constant, constant, residual, fuel_acc) do
+    case floor(mass * gravity_constant * constant - residual) do
       fuel when fuel <= 0 ->
         fuel_acc
 
       fuel ->
-        calculate_recursive(fuel, gravity, constant, residual, fuel_acc + fuel)
+        calculate_recursive(fuel, gravity_constant, constant, residual, fuel_acc + fuel)
     end
   end
 

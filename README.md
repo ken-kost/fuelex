@@ -1,8 +1,25 @@
 # Fuelex
 
-Run `mix test --trace` for tests.
+Run `MIX_ENV=test mix setup && mix test --trace` for tests.
 
-Run `iex -S mix` to start `GenShip` with random simulations.
+Run `mix setup && iex -S mix` to start `GenShip` with random simulations.
+
+Setup is necessary to seed initial data.
+
+But with `ash_ai` it is possible to tell the agent to insert it for you.
+
+By doing `AshAi.iex_chat [otp_app: :fuelex]` you will gain access in talking to the agent.
+
+In order for it to work, before starting you need to
+`export OPEN_AI_API_KEy="you_open_ai_api_key"`.
+
+In order to exit you enter `exit`
+
+Once in the iex chat empowered by your AI
+ you could ask for missing planets from the solar system, or
+different ships and their mass that NASA has.
+
+## Random run from GenShip
 
 ```
 12:42:18.218 [info] Initiating random simulations...

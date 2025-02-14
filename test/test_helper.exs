@@ -1,6 +1,1 @@
 ExUnit.start()
-Fuelex.Domain.add_gravity!("earth", 9.807)
-Fuelex.Domain.add_gravity!("moon", 1.620)
-Fuelex.Domain.add_gravity!("mars", 3.711)
-Fuelex.Domain.add_constant!(:launch, 0.042, 33)
-Fuelex.Domain.add_constant!(:land, 0.033, 42)

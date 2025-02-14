@@ -18,6 +18,7 @@ defmodule Fuelex.Ships do
     defaults([:read, update: :*])
 
     read :get_by_name do
+      get?(true)
       argument(:name, :string)
       filter(name: arg(:name))
     end

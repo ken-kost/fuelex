@@ -18,6 +18,7 @@ defmodule Fuelex.Gravities do
     defaults([:read, update: :*])
 
     read :get_by_planet do
+      get?(true)
       argument(:planet, :string)
       filter(planet: arg(:planet))
     end

@@ -13,6 +13,7 @@ defmodule Fuelex.Constants do
     defaults([:read])
 
     read :get_by_type do
+      get?(true)
       argument(:type, :atom)
       filter(type: arg(:type))
     end
