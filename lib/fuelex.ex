@@ -3,17 +3,6 @@ defmodule Fuelex do
   Documentation for `Fuelex`.
   """
 
-  @gravities %{
-    "earth" => 9.807,
-    "moon" => 1.620,
-    "mars" => 3.711
-  }
-
-  @constants %{
-    :launch => {0.042, 33},
-    :land => {0.033, 42}
-  }
-
   #  """
   # Calculates ammount of fuel for a given mass of ship it's path.
 
@@ -31,23 +20,23 @@ defmodule Fuelex do
   end
 
   defp calculate({directive, planet}, mass) do
-    {constant, residual} = Map.get(@constants, directive)
-    gravity = Map.get(@gravities, planet)
-    calculate_recursive(mass, gravity, constant, residual, 0)
+    %{constant: constant, residual: residual} = Fuelex.Domain.get_constant!(directive)
+    gravity = Fuelex.Domain.get_gravity!(planet)
+    calculate_recursive(mass, gravity.constant, constant, residual, 0)
   end
 
-  defp calculate_recursive(mass, gravity, constant, residual, fuel_acc) do
-    case floor(mass * gravity * constant - residual) do
+  defp calculate_recursive(mass, gravity_constant, constant, residual, fuel_acc) do
+    case floor(mass * constant * gravity_constant - residual) do
       fuel when fuel <= 0 ->
         fuel_acc
 
       fuel ->
-        calculate_recursive(fuel, gravity, constant, residual, fuel_acc + fuel)
+        calculate_recursive(fuel, gravity_constant, constant, residual, fuel_acc + fuel)
     end
   end
 
   defp validate_path(path) do
-    planets = Map.keys(@gravities)
+    planets = Enum.map(Ash.read!(Fuelex.Gravities), & &1.planet)
 
     Enum.reduce_while(path, :ok, fn {_, planet}, acc ->
       if planet in planets, do: {:cont, acc}, else: {:halt, {:error, error(planet, planets)}}
