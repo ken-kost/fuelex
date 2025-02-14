@@ -23,7 +23,7 @@ defmodule Fuelex.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ash_ai, path: "../ash_ai", override: true},
+      {:ash_ai, github: "ash-project/ash_ai"},
       {:ash_postgres, "~> 2.5"},
       {:ash_json_api, "~> 1.4", override: true},
       {:igniter, "~> 0.5.23"}

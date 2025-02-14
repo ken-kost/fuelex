@@ -73,7 +73,7 @@ defmodule Fuelex.GenShip do
   end
 
   defp generate_random_path(%{gravities: gravities, constants: constants}) do
-    0..Enum.random(1..2)
+    0..Enum.random(100..300)
     |> Enum.reduce([], fn
       _i, [] ->
         launch = Enum.find(constants, &(&1.type == :launch))

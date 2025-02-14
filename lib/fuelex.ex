@@ -26,7 +26,7 @@ defmodule Fuelex do
   end
 
   defp calculate_recursive(mass, gravity_constant, constant, residual, fuel_acc) do
-    case floor(mass * gravity_constant * constant - residual) do
+    case floor(mass * constant * gravity_constant - residual) do
       fuel when fuel <= 0 ->
         fuel_acc
 
