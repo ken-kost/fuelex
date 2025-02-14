@@ -1,5 +1,5 @@
 defmodule Fuelex.Domain do
-  use Ash.Domain, otp_app: :fuelex, extensions: [AshAi]
+  use Ash.Domain, otp_app: :fuelex
 
   resources do
     resource Fuelex.Ships do
