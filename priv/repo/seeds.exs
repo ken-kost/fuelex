@@ -1,0 +1,8 @@
+Fuelex.Domain.add_ship!("Apollo 11", 28801)
+Fuelex.Domain.add_ship!("Mission", 14606)
+Fuelex.Domain.add_ship!("Passenger", 75432)
+Fuelex.Domain.add_gravity!("earth", 9.807)
+Fuelex.Domain.add_gravity!("moon", 1.620)
+Fuelex.Domain.add_gravity!("mars", 3.711)
+Fuelex.Domain.add_constant!(:launch, 0.042, 33)
+Fuelex.Domain.add_constant!(:land, 0.033, 42)
